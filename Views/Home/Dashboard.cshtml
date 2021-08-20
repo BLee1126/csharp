@@ -1,0 +1,72 @@
+<div>
+    <h1>All the activities!</h1>
+    <div>
+        <h2>Hello, @ViewBag.Name !</h2>
+        <a href="/logout">Logout</a>
+    </div>
+</div>
+<div>
+    <table class="table table-dark table-hover">    
+        <tr>
+            <th>Activity</th>
+            <th>Date and Time</th>
+            <th>Duration</th>
+            <th>Event Coordinator</th>
+            <th>No. of Participants</th>
+            <th>Actions</th>
+        </tr>
+        @foreach(Stuff stuff in ViewBag.Stuffs)
+        {
+            @if(stuff.Date > DateTime.Now)
+            {
+                <tr>
+                    <td><a href="/stuffs/@stuff.StuffId">@stuff.Title</a></td>
+                    <td>@stuff.Date.ToString("MM/d @ HH:mm tt") </td>
+                    <td>@stuff.Duration @stuff.DurationType</td>
+                    <td>@stuff.Creator.Name </td>
+
+                    @if(stuff.Rsvp != null){
+                        <td>@stuff.Rsvp.Count</td>
+                    }
+                    else{
+                        <td>0</td>
+                    }  
+                    @if(stuff.CreatorId == ViewBag.UserId)
+                    {
+                        <td><a href="/stuffs/delete/@stuff.StuffId" class= "btn btn-med btn-danger">Delete</a></td>
+                    }
+
+                    @if (stuff.Rsvp.Any(rsvp => rsvp.UserId == @ViewBag.UserId))
+                    {
+                        <td><a href="/rsvp/delete/@stuff.StuffId" class= "btn btn-med btn-warning">Leave</a></td>
+                    }
+                    else{
+                        <td><a href="/rsvp/add/@stuff.StuffId" class= "btn btn-med btn-primary">Join</a></td>
+                    }
+                </tr>
+            }
+            @* else
+            {
+                <tr style="color:red">
+                    <td><a href="/stuffs/@stuff.StuffId">@stuff.Title</a></td>
+                    <td>Expired</td>
+                    <td>@stuff.Duration @stuff.DurationType</td>
+                    <td>@stuff.Creator.Name </td>
+                    @if(stuff.Rsvp != null){
+                        <td>@stuff.Rsvp.Count</td>
+                    }
+                    else{
+                        <td>0</td>
+                    }  
+                    @if(stuff.CreatorId == ViewBag.UserId)
+                    {
+                        <td><a href="/stuffs/delete/@stuff.StuffId">Delete</a></td>
+                    }
+                </tr>
+            } *@
+
+            
+        }
+    </table>    
+</div>
+<a href="/stuffsForm" btn btn-lg btn-success>New Activity!</a>

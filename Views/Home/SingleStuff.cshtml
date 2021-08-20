@@ -1,0 +1,38 @@
+
+<div class="header">
+    <h1>Hello! @ViewBag.Name</h1>
+    <a href="/dashboard">Dashboard</a>
+    <a href="/logout">Logout</a>
+</div>
+<div class="buttons">
+    
+        @if (@ViewBag.Button == null)
+        {
+            <a href="/rsvp/add2/@ViewBag.Stuff.StuffId" class= "btn btn-lg btn-primary">Join</a>
+        }
+        else
+        {
+            <a href="/rsvp/delete2/@ViewBag.Stuff.StuffId" class= "btn btn-lg btn-warning">Leave</a>
+        }
+        @if(ViewBag.Stuff.CreatorId == ViewBag.UserId)
+        {
+            <td><a href="/stuffs/delete/@ViewBag.Stuff.StuffId" class= "btn btn-lg btn-danger">Delete</a></td>
+        }
+</div>
+<h1>Title: @ViewBag.Stuff.Title</h1>
+<h2>Event Coordinator: @ViewBag.Stuff.Creator.Name</h2>
+<h2>Description: @ViewBag.Stuff.Description</h2>
+
+
+
+
+Participants:
+<ul>
+    @foreach (User user in ViewBag.Guests)
+    {
+        <li>@user.Name</li>
+    }
+</ul>
+
+
+

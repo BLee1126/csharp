@@ -1,0 +1,46 @@
+@model Stuff
+<div>
+    <h1>Plan an Activity!</h1>
+    <div>
+        <h1>Hello! @ViewBag.Name</h1>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/logout">Logout</a>
+    </div>
+</div>
+
+
+<form asp-controller = "Home" asp-action="CreateStuff" method = "post">
+    <div id="form-group">
+        <label asp-for="Title"></label>
+        <input asp-for="Title" class="form-control">
+        <span class="alert-danger" asp-validation-for="Title"></span>
+    </div>
+    <div id="form-group">
+        <label asp-for="Date"></label>
+        <input asp-for="Date" class="form-control">
+        <span class="alert-danger" asp-validation-for="Date"></span>
+
+    </div>
+        <div id="form-group">
+        <label asp-for="Duration"></label>
+        <input type = "Number" asp-for="Duration" class="form-control">
+        <span class="alert-danger" asp-validation-for="Duration"></span>
+    </div>
+    </div>
+        <div id="form-group">
+        <label asp-for="DurationType"></label>
+        <Select asp-for="DurationType" class="form-control">
+            <option value="Days">Days</option>
+            <option value="Hours">Hours</option>
+            <option value="Minutes">Minutes</option>
+        </Select>
+        <span class="alert-danger" asp-validation-for="DurationType"></span>
+    </div>
+    <div id="form-group">
+        <label asp-for="Description"></label>
+        <textarea asp-for="Description" class="form-control" rows="4" cols="20"></textarea>
+        <span class="alert-danger" asp-validation-for="Description"></span>
+    <input type="hidden" asp-for="CreatorId" value="@ViewBag.UserId">
+
+    <input type="submit" class="btn btn-lg btn-success mt-5">
+</form>
